@@ -1,0 +1,86 @@
+#キャラのセット.charaというキーワードから始まる
+#setキーワードは画像を格納する。setの次でキャラ名を決め、その次で今回格納する画像のポーズ名を命名する
+#画像のパスを決める。
+[ chara set キャラ子 pose1 chara/chara.png ]
+[ chara set キャラ子 pose2 chara/chara_a.png ]
+[ chara set キャラ子 pose3 chara/chara_k.png ]
+[ chara set キャラ子 pose4 chara/chara_w.png ]
+#こんな感じで一気に作ることも可能
+
+[ chara change キャラ子 chara1 pose1 -175 0 150 200 ]
+#chara change でキャラの画像の表示タイミングをいじれる。3つめからキャラ名、表示するタイミングのラベル名、表示するポーズ
+# X座標、Y座標、横幅、縦幅と要素が並ぶ。ちなみに別にcharaは初めにまとめなくてもいい。好きなタイミングで読み込みや登場タイミングを挿
+#入してもらえれば。ただ単に今回僕がわかり易かろうと思っただけなので。
+
+[ bg bg1.png ]
+#bgキーワードは背景を格納する。bgの次でファイルのパスを選択
+[ label chara1 ]
+これは足し算の問題です
+#
+
+#背景は一枚しか存在しないので新しく設定すると前のが破棄され今回のが設定されるようになる
+[ bg bg2.png ]
+問：1 + 1 = ?
+[ branch 2 label1 0 70 common1 ]
+
+[ branch 3 label2 0 -20 common1 ]
+#branchキーワードで分岐ボタンを生成できる。branchの次がボタン内のテキストを文字列を決め、
+#その次が選ばれた時に飛ぶ先のラベル名、X座標、Y座標、そして飛んだ先から更に次に飛ぶ先のラベルを指定する
+
+[ label label1 ]
+正解！
+#ラベルは分岐先や画像などの生成・削除タイミングの指定に主に使われる。labelキーワードで設定することを明示し、その次で
+#ラベルの名前を指定する
+
+[ label label2 ]
+間違い！
+#
+
+[ chara set c2 pose1 chara/kiri.png ]
+[ chara change c2 common1 pose1 150 0 150 200 ]
+#キャラは複数登場させることも一応できます
+#こんな感じで set と change は適当な場所でも実行は可能。個人的にsetは最初に行い、一番最初のchangeだけ設定して、あとは
+#変更タイミングごとにchangeキーワードを設定していけばいいと思う
+
+[ label common1 ]
+共通ルートです。
+#
+
+[ chara change c2 chara_d delete ]
+[ label chara_d ]
+キャラを退場させます
+#こんな感じでポーズ名のところに delete と入れるとキャラを削除できます。座標は入れなかったら自動的に原点（画面中央）に
+#設定されるようになってます
+
+[ chara change キャラ子 pose pose3 -175 0 150 200 ]
+[ label pose ]
+キャラの画像を変更
+#
+
+[ image gazou1.png 0 0 image1 delete1 100 100 ]
+[ label image1 ]
+画像１を表示します
+#imageキーワードで画像を作る。2つ目からはファイルパス、X座標、Y座標、消すタイミングのラベル、横幅、縦幅と続く。
+
+[ image gazou2.png -100 100 image2 delete2 100 100 ]
+[ label image2 ]
+画像２を表示します
+#
+
+[ label delete1 ]
+画像１を消します
+#
+
+テスト
+てすと
+テス　ト
+#
+
+[ label delete2 ]
+画像２を消します
+#
+
+[ chara change c2 saitojo pose1 150 0 150 200 ]
+[ label saitojo ]
+C2の再登場
+#
